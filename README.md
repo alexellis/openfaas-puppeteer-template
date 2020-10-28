@@ -4,6 +4,12 @@ This [OpenFaaS template](https://www.openfaas.com/) uses [docker-puppeteer by bu
 
 Why do we need an OpenFaaS template? Templates provide an easy way to scaffold a microservice or function and to deploy that at scale on a Kubernetes cluster. The faasd project also gives a way for small teams to get on the experience curve, without learning anything about Kubernetes.
 
+* Extend timeouts to whatever you want
+* Run asynchronously, and in parallel
+* Get a callback with the result when done
+* Limit concurrency with `max_inflight` environment variable in stack.yml
+* Trigger from cron, or events
+
 ## Get OpenFaaS
 
 [Deploy OpenFaaS](https://docs.openfaas.com/deployment/) to Kubernetes, or to faasd (single-node with just containerd)
@@ -66,13 +72,16 @@ module.exports = async (event, context) => {
 ```
 
 ```bash
-echo '{"uri": "https://inlets.dev/blog"}' | faas-cli invoke scrape-title --header "Content-type=application/json"
+echo '{"uri": "https://inlets.dev/blog"}' | faas-cli invoke scrape-title \
+  --header "Content-type=application/json"
 ```
 
 Alternatively run async:
 
 ```bash
-echo '{"uri": "https://inlets.dev/blog"}' | faas-cli invoke scrape-title --async --header "Content-type=application/json"
+echo '{"uri": "https://inlets.dev/blog"}' | faas-cli invoke scrape-title \
+  --async \
+  --header "Content-type=application/json"
 ```
 
 Run async, post the response to another service or receiver function:
