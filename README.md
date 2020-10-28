@@ -77,6 +77,15 @@ Alternatively run async:
 echo '{"uri": "https://inlets.dev/blog"}' | faas-cli invoke scrape-title --async --header "Content-type=application/json"
 ```
 
+Run async, post the response to another service or receiver function:
+
+```bash
+echo '{"uri": "https://inlets.dev/blog"}' | faas-cli invoke scrape-title \
+  --async \
+  --header "Content-type=application/json" \
+  --header "X-Callback-Url=https://en98kppbwx32.x.pipedream.net"
+```
+
 ### Take a screenshot and return it as a binary response
 
 ```javascript
