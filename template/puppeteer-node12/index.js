@@ -78,8 +78,10 @@ var middleware = async (req, res) => {
         }
 
         if(isArray(functionResult) || isObject(functionResult)) {
+            console.log("to string")
             res.set(fnContext.headers()).status(fnContext.status()).send(JSON.stringify(functionResult));
         } else {
+            console.log("raw", functionResult.constructor)
             res.set(fnContext.headers()).status(fnContext.status()).send(functionResult);
         }
     };

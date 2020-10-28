@@ -38,28 +38,3 @@ module.exports = async (event, context) => {
     .status(200)
     .succeed(result)
 }
-
-
-// before(async() => {
-
-// })
-
-// beforeEach(async() => {
-//   
-// })
-
-// afterEach(async() => {
-//   await page.close()
-// })
-
-// after(async() => {
-//   await browser.close()
-// })
-
-// describe('App', () => {
-//   it('renders', async() => {
-//     const response = await page.goto('http://web/')
-//     assert(response.ok())
-//     await page.screenshot({ path: `/screenshots/app.png` })
-//   })
-// })
