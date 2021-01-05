@@ -22,7 +22,7 @@ OpenFaaS benefits / features:
 * Get metrics on duration, HTTP exit codes, scale out across multiple nodes
 * Start small with faasd
 
-## See the tutorial on the OpenFaaS blog
+## See the full tutorial on the OpenFaaS blog
 
 [Web scraping that just works with OpenFaaS with Puppeteer](https://www.openfaas.com/blog/puppeteer-scraping/)
 
@@ -265,3 +265,8 @@ This is an example image generated for my [GitHub Sponsors page](https://github.
 ![Generated image](https://github.com/alexellis/alexellis/blob/master/sponsor-today.png?raw=true)
 
 HTML: [sponsor-cta.html](https://github.com/alexellis/alexellis/blob/master/sponsor-cta.html)
+
+## See the full tutorial on the OpenFaaS blog
+
+[Web scraping that just works with OpenFaaS with Puppeteer](https://www.openfaas.com/blog/puppeteer-scraping/)
+
