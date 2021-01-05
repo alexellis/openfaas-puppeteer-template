@@ -10,7 +10,7 @@ Use-cases:
 * Automate websites which have no API
 * Create visual assets from HTML/CSS - like social sharing banners
 
-Why do we need an OpenFaaS template? Templates provide an easy way to scaffold a microservice or function and to deploy that at scale on a Kubernetes cluster. The faasd project also gives a way for small teams to get on the experience curve, without learning anything about Kubernetes.
+Why do we need an OpenFaaS template? Templates provide an easy way to scaffold a microservice or function and to deploy that at scale on a Kubernetes cluster. The [faasd](https://github.com/openfaas/faasd) project also gives a way for small teams to get on the experience curve, without learning anything about Kubernetes.
 
 OpenFaaS benefits / features:
 
@@ -20,7 +20,7 @@ OpenFaaS benefits / features:
 * Limit concurrency with `max_inflight` environment variable in stack.yml
 * Trigger from cron, or events
 * Get metrics on duration, HTTP exit codes, scale out across multiple nodes
-* Start small with faasd
+* Start small with [faasd](https://github.com/openfaas/faasd)
 
 ## See the full tutorial on the OpenFaaS blog
 
@@ -262,11 +262,21 @@ Note that the inputs are URLEncoded for the querystring. You can also use the `e
 
 This is an example image generated for my [GitHub Sponsors page](https://github.com/sponsors/alexellis) which uses a different HTML template, that's loaded from disk.
 
-![Generated image](https://github.com/alexellis/alexellis/blob/master/sponsor-today.png?raw=true)
+[![Generated image](https://github.com/alexellis/alexellis/blob/master/sponsor-today.png?raw=true)]((https://github.com/sponsors/alexellis))
 
 HTML: [sponsor-cta.html](https://github.com/alexellis/alexellis/blob/master/sponsor-cta.html)
 
-## See the full tutorial on the OpenFaaS blog
+## You may also like
 
-[Web scraping that just works with OpenFaaS with Puppeteer](https://www.openfaas.com/blog/puppeteer-scraping/)
+### The full tutorial on the OpenFaaS blog
+
+* [Web scraping that just works with OpenFaaS with Puppeteer](https://www.openfaas.com/blog/puppeteer-scraping/)
+
+### Serverless Node.js that you can run anywhere
+
+Serverless doesn’t have to mean using a function, bring your favourite micro HTTP framework with you: [Serverless Node.js that you can run anywhere](https://www.openfaas.com/blog/serverless-nodejs/)
+
+### faasd with TLS on DigitalOcean
+
+* [Bring a lightweight Serverless experience to DigitalOcean with Terraform and faasd](https://www.openfaas.com/blog/faasd-tls-terraform/)
 
