@@ -2,6 +2,14 @@
 
 This [OpenFaaS template](https://www.openfaas.com/) uses [docker-puppeteer by buildkite](https://github.com/buildkite/docker-puppeteer/) to give you access to [Puppeteer](https://github.com/puppeteer/puppeteer). Puppeteer is a popular tool that can automate a headless Chrome browser for scraping fully-rendered web pages.
 
+Use-cases:
+
+* Run your end to end tests with mocha/jest against a real website
+* Capture screenshots of sites and diff them
+* Capture / scrape text from sites which have no API or are only rendered in the DOM
+* Automate websites which have no API
+* Create visual assets from HTML/CSS - like social sharing banners
+
 Why do we need an OpenFaaS template? Templates provide an easy way to scaffold a microservice or function and to deploy that at scale on a Kubernetes cluster. The faasd project also gives a way for small teams to get on the experience curve, without learning anything about Kubernetes.
 
 OpenFaaS benefits / features:
