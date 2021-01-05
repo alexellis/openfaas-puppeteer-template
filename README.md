@@ -163,9 +163,21 @@ open screenshot.png
 
 #### Produce homepage banners and social sharing images
 
-Produce homepage banners and social sharing images by rendering HTML locally, and then saving a screenshot.
+You can also produce homepage banners and social sharing images by rendering HTML locally, and then saving a screenshot.
 
-The execution time is very quick, and you can cache the images to `/tmp/` or save them to a CDN.
+Unlike a SaaS service, you'll have no month fees to pay, and get unlimited use, you can also customise the code and trigger it however you like.
+
+The execution time is very quick at under 0.5s per image and could be made faster by preloading the Chromium browser and re-using it. if you cache the images to `/tmp/` or save them to a CDN, you'll have single-digit latency.
+
+```bash
+# Set to your Docker Hub account or registry address
+export OPENFAAS_PREFIX=alexellis2
+
+faas-cli new --lang puppeteer-node12 banner-gen --prefix $OPENFAAS_PREFIX
+```
+
+Edit `./banner-gen/handler.js`
+
 
 ```js
 'use strict'
@@ -175,23 +187,17 @@ const fs = require('fs');
 const fsPromises = fs.promises;
 
 module.exports = async (event, context) => {
-  let browser
-  let page
-  
-  browser = await puppeteer.launch({
+  let browser = await puppeteer.launch({
     args: [
-      // Required for Docker version of Puppeteer
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      // This will write shared memory files into /tmp instead of /dev/shm,
-      // because Docker’s default for /dev/shm is 64MB
       '--disable-dev-shm-usage'
     ]
   })
 
   const browserVersion = await browser.version()
   console.log(`Started ${browserVersion}`)
-  page = await browser.newPage()
+  let page = await browser.newPage()
 
   let title = "Set your title"
   let avatar = "https://avatars2.githubusercontent.com/u/6358735?s=160&amp;v=4"
@@ -228,6 +234,12 @@ module.exports = async (event, context) => {
 }
 ```
 
+Deploy the function:
+
+```bash
+faas-cli up -f banner-gen.yml
+```
+
 Example usage:
 
 ```bash
@@ -240,9 +252,8 @@ curl -G "http://127.0.0.1:8080/function/generate-banner" \
 
 Note that the inputs are URLEncoded for the querystring. You can also use the `event.body` if you wish to access the function programmatically, instead of from a browser.
 
-Example image:
+This is an example image generated for my [GitHub Sponsors page](https://github.com/sponsors/alexellis) which uses a different HTML template, that's loaded from disk.
 
 ![Generated image](https://github.com/alexellis/alexellis/blob/master/sponsor-today.png?raw=true)
 
 HTML: [sponsor-cta.html](https://github.com/alexellis/alexellis/blob/master/sponsor-cta.html)
-
