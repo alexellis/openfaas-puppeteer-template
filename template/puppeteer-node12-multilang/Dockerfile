@@ -1,6 +1,16 @@
 FROM openfaas/of-watchdog:0.7.2 as watchdog
 FROM buildkite/puppeteer:latest
 
+# Allow for Japanese, Chinese, etc. characters
+# Based on https://developers.google.com/web/tools/puppeteer/troubleshooting#running_puppeteer_in_docker
+RUN apt-get update \
+    && apt-get install -y wget gnupg \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && apt-get update \
+    && apt-get install -y fonts-noto-color-emoji fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 

@@ -54,7 +54,7 @@ const puppeteer = require('puppeteer')
 module.exports = async (event, context) => {
   let browser
   let page
-  
+
   browser = await puppeteer.launch({
     args: [
       // Required for Docker version of Puppeteer
@@ -122,7 +122,7 @@ const fs = require('fs').promises
 module.exports = async (event, context) => {
   let browser
   let page
-  
+
   browser = await puppeteer.launch({
     args: [
       // Required for Docker version of Puppeteer
@@ -265,6 +265,15 @@ This is an example image generated for my [GitHub Sponsors page](https://github.
 [![Generated image](https://github.com/alexellis/alexellis/blob/master/sponsor-today.png?raw=true)]((https://github.com/sponsors/alexellis))
 
 HTML: [sponsor-cta.html](https://github.com/alexellis/alexellis/blob/master/sponsor-cta.html)
+
+## Emoji and Foreign Language Support
+
+If you'd like to display emojis and foreign characters such as Chinese, you will need to adjust your yml to use the `multilang` template.
+
+```
+-    lang: puppeteer-node12
++    lang: puppeteer-node12-multilang
+```
 
 ## You may also like
 
