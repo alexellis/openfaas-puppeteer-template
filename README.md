@@ -266,6 +266,25 @@ This is an example image generated for my [GitHub Sponsors page](https://github.
 
 HTML: [sponsor-cta.html](https://github.com/alexellis/alexellis/blob/master/sponsor-cta.html)
 
+## Emojis and more
+
+For emojis add:
+
+```yaml
+    build_options:
+      - emojis
+```
+
+For emojis and language packs add:
+
+```yaml
+    build_options:
+      - emojis
+      - languages
+```
+
+These packages will increase the size of the container image by 100-200MB.
+
 ## You may also like
 
 ### The full tutorial on the OpenFaaS blog

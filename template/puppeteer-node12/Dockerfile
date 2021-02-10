@@ -1,5 +1,16 @@
 FROM openfaas/of-watchdog:0.7.2 as watchdog
-FROM buildkite/puppeteer:latest
+FROM buildkite/puppeteer:5.2.1
+
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+ARG ADDITIONAL_PACKAGE
+
+RUN if test -n "${ADDITIONAL_PACKAGE}"; then apt-get update \
+    && apt-get install -y curl gnupg \
+    && curl -sLSf https://dl-ssl.google.com/linux/linux_signing_key.pub -o - | apt-key add - \
+    && apt-get update ;fi
+
+RUN if test -n "${ADDITIONAL_PACKAGE}"; then apt-get install -y ${ADDITIONAL_PACKAGE} --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* ;fi
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
