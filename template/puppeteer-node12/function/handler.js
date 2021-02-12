@@ -33,7 +33,9 @@ module.exports = async (event, context) => {
     "title": title
   }
 
-  browser.close()
+  await browser.close()
+  await browser.disconnect()
+  
   return context
     .status(200)
     .succeed(result)
