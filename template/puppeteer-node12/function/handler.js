@@ -11,6 +11,8 @@ module.exports = async (event, context) => {
       // Required for Docker version of Puppeteer
       '--no-sandbox',
       '--disable-setuid-sandbox',
+      '--no-zygote',
+      '--single-process',
       // This will write shared memory files into /tmp instead of /dev/shm,
       // because Docker’s default for /dev/shm is 64MB
       '--disable-dev-shm-usage'
@@ -34,7 +36,6 @@ module.exports = async (event, context) => {
   }
 
   await browser.close()
-  await browser.disconnect()
   
   return context
     .status(200)
