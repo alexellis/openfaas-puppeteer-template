@@ -1,6 +1,6 @@
 # openfaas-puppeteer-template
 
-This [OpenFaaS template](https://www.openfaas.com/) uses [docker-puppeteer by buildkite](https://github.com/buildkite/docker-puppeteer/) to give you access to [Puppeteer](https://github.com/puppeteer/puppeteer). Puppeteer is a popular tool that can automate a headless Chrome browser for scraping fully-rendered web pages.
+This [OpenFaaS template](https://www.openfaas.com/) uses a container image published by the [Puppeteer project](https://ghcr.io/puppeteer/puppeteer) to give you access to [Puppeteer](https://github.com/puppeteer/puppeteer). Puppeteer is a popular tool that can automate a headless Chrome browser for scraping fully-rendered web pages.
 
 Use-cases:
 
@@ -22,6 +22,8 @@ OpenFaaS benefits / features:
 * Get metrics on duration, HTTP exit codes, scale out across multiple nodes
 * Start small with [faasd](https://github.com/openfaas/faasd)
 
+See also: [Puppeteer docs](https://pptr.dev)
+
 ## See the full tutorial on the OpenFaaS blog
 
 [Web scraping that just works with OpenFaaS with Puppeteer](https://www.openfaas.com/blog/puppeteer-scraping/)
@@ -37,7 +39,7 @@ OpenFaaS benefits / features:
 ```bash
 faas-cli template pull https://github.com/alexellis/openfaas-puppeteer-template
 
-faas-cli new --lang puppeteer-node12 scrape-title --prefix alexellis2
+faas-cli new --lang puppeteer-nodelts scrape-title --prefix alexellis2
 
 faas-cli up -f scrape-title.yml
 ```
@@ -181,7 +183,7 @@ The execution time is very quick at under 0.5s per image and could be made faste
 # Set to your Docker Hub account or registry address
 export OPENFAAS_PREFIX=alexellis2
 
-faas-cli new --lang puppeteer-node12 banner-gen --prefix $OPENFAAS_PREFIX
+faas-cli new --lang puppeteer-nodelts banner-gen --prefix $OPENFAAS_PREFIX
 ```
 
 Edit `./banner-gen/handler.js`

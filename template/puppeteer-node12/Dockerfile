@@ -1,5 +1,8 @@
-FROM ghcr.io/openfaas/of-watchdog:0.9.6 as watchdog
-FROM buildkite/puppeteer:5.2.1
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.8 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} buildkite/puppeteer:5.2.1
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 ARG ADDITIONAL_PACKAGE
