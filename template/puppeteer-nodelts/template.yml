@@ -1,0 +1,23 @@
+language: puppeteer-nodelts
+fprocess: node index.js
+welcome_message: |
+        You've created a function which can use the puppeteer npm module.
+
+        Learn more at: https://pptr.dev/
+
+        You can specify the following "build_options":
+        - languages - for Eastern fonts
+        - emojis - to render emojis
+
+build_options:
+  - name: emojis
+    packages: 
+      - fonts-noto-color-emoji
+      - fonts-freefont-ttf
+      - libxss1
+  - name: languages
+    packages: 
+      - fonts-ipafont-gothic
+      - fonts-wqy-zenhei
+      - fonts-thai-tlwg
+      - fonts-kacst

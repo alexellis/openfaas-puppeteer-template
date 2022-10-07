@@ -1,8 +1,22 @@
-FROM ghcr.io/openfaas/of-watchdog:0.9.6 as watchdog
-FROM buildkite/puppeteer:5.2.1
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.8 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/puppeteer/puppeteer:18.2.1
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 ARG ADDITIONAL_PACKAGE
+
+USER root
+RUN addgroup --system app \
+    && adduser --system --ingroup app app
+
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
+
+# chmod for tmp is for a buildkit issue (@alexellis)
+RUN chown app:app -R /home/app \
+    && chmod 777 /tmp
 
 RUN if test -n "${ADDITIONAL_PACKAGE}"; then apt-get update \
     && apt-get install -y curl gnupg \
@@ -12,20 +26,12 @@ RUN if test -n "${ADDITIONAL_PACKAGE}"; then apt-get update \
 RUN if test -n "${ADDITIONAL_PACKAGE}"; then apt-get install -y ${ADDITIONAL_PACKAGE} --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* ;fi
 
-COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
-RUN chmod +x /usr/bin/fwatchdog
-
-RUN addgroup --system app \
-    && adduser --system --ingroup app app
-
-WORKDIR /root/
-
 # Turn down the verbosity to default level.
 ENV NPM_CONFIG_LOGLEVEL warn
 
 RUN mkdir -p /home/app
 
-# Wrapper/boot-strapper
+# Entrypoint
 WORKDIR /home/app
 COPY package.json ./
 
@@ -53,9 +59,6 @@ RUN npm test
 # Set correct permissions to use non root user
 WORKDIR /home/app/
 
-# chmod for tmp is for a buildkit issue (@alexellis)
-RUN chown app:app -R /home/app \
-    && chmod 777 /tmp
 
 USER app
 
