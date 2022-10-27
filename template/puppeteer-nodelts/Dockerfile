@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.8 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.10 as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/puppeteer/puppeteer:18.2.1
 
 ARG TARGETPLATFORM
