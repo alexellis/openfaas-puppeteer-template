@@ -6,8 +6,8 @@ welcome_message: |
         Learn more at: https://pptr.dev/
 
         You can specify the following "build_options":
-        - languages - for Eastern fonts
         - emojis - to render emojis
+        - languages - for Eastern fonts
 
 build_options:
   - name: emojis

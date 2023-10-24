@@ -12,6 +12,6 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "puppeteer": "^18.2.1"
+    "puppeteer": "^21.4.1"
   }
 }
