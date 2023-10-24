@@ -21,6 +21,7 @@ module.exports = async (event, context) => {
 
   const browserVersion = await browser.version()
   console.log(`Started ${browserVersion}`)
+
   page = await browser.newPage()
   let uri = "https://inlets.dev/blog/"
   if(event.body && event.body.uri) {

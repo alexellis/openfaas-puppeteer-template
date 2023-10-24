@@ -24,6 +24,10 @@ OpenFaaS benefits / features:
 
 See also: [Puppeteer docs](https://pptr.dev)
 
+This template is compatible with `x86_64`, Arm64 may require additional work within Puppeteer or the Puppeteer container images.
+
+> "Chromium currently does not provide arm64 binaries for Linux." - [see more](https://pptr.dev/troubleshooting/)
+
 ## See the full tutorial on the OpenFaaS blog
 
 [Web scraping that just works with OpenFaaS with Puppeteer](https://www.openfaas.com/blog/puppeteer-scraping/)
@@ -39,9 +43,12 @@ See also: [Puppeteer docs](https://pptr.dev)
 ```bash
 faas-cli template pull https://github.com/alexellis/openfaas-puppeteer-template
 
-faas-cli new --lang puppeteer-nodelts scrape-title --prefix alexellis2
+# Populate with your Docker Hub username, or registry
+export OPENFAAS_PREFIX=alexellis2
 
-faas-cli up -f scrape-title.yml
+faas-cli new --lang puppeteer-nodelts scrape-title
+
+faas-cli up --publish -f scrape-title.yml
 ```
 
 ### Example functions and invocations
