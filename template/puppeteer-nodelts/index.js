@@ -64,6 +64,10 @@ class FunctionContext {
 
     fail(value) {
         let message;
+        if(this.status() == "200") {
+            this.status(500)
+        }
+        
         this.cbCalled++;
         this.cb(value, message);
     }
@@ -74,7 +78,8 @@ var middleware = async (req, res) => {
         if (err) {
             console.error(err);
 
-            return res.status(500).send(err.toString ? err.toString() : err);
+            return res.status(fnContext.status())
+                .send(err.toString ? err.toString() : err);
         }
 
         if(isArray(functionResult) || isObject(functionResult)) {
