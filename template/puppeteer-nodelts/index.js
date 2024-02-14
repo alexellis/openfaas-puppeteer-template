@@ -8,6 +8,7 @@ const express = require('express')
 const app = express()
 const handler = require('./function/handler');
 const bodyParser = require('body-parser')
+const promClient = require('prom-client');
 
 if (process.env.RAW_BODY === 'true') {
     app.use(bodyParser.raw({ type: '*/*' }))
@@ -102,6 +103,11 @@ var middleware = async (req, res) => {
         cb(e);
     });
 };
+
+app.get('/metrics', (req, res) => {
+    res.set('Content-Type', promClient.register.contentType);
+    res.end(promClient.register.metrics());
+});
 
 app.post('/*', middleware);
 app.get('/*', middleware);
