@@ -10,6 +10,12 @@ const handler = require("./function/handler");
 const bodyParser = require("body-parser");
 const promClient = require("prom-client");
 
+const counter = new promClient.Counter({
+  name: "http_requests_total",
+  help: "Total number of HTTP requests",
+  labelNames: ["method", "path", "status"],
+});
+
 if (process.env.RAW_BODY === "true") {
   app.use(bodyParser.raw({ type: "*/*" }));
 } else {
@@ -18,6 +24,13 @@ if (process.env.RAW_BODY === "true") {
   app.use(bodyParser.raw()); // "Content-Type: application/octet-stream"
   app.use(bodyParser.text({ type: "text/*" }));
 }
+
+app.use((req, res, next) => {
+  res.on("finish", () => {
+    counter.labels(req.method, req.path, res.statusCode).inc(); // 요청 정보를 기반으로 카운터 증가
+  });
+  next();
+});
 
 app.disable("x-powered-by");
 
@@ -111,9 +124,12 @@ var middleware = async (req, res) => {
     });
 };
 
-app.get("/metrics", (req, res) => {
+promClient.collectDefaultMetrics();
+
+app.get("/metrics", async (req, res) => {
   res.set("Content-Type", promClient.register.contentType);
-  res.end(promClient.register.metrics());
+  const metrics = await promClient.register.metrics();
+  res.end(metrics);
 });
 
 app.post("/*", middleware);
